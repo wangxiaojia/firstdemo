@@ -12,7 +12,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-
+//注释一下
 @EnableCaching//启用缓存
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EntityScan("com.example.firstdemo")
