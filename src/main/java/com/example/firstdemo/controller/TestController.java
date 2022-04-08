@@ -2,11 +2,12 @@ package com.example.firstdemo.controller;
 
 import com.example.firstdemo.bean.User;
 import com.example.firstdemo.dao.UserRepository;
+import com.example.firstdemo.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -16,17 +17,34 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/test")
+@Api(tags = "用户信息管理")
 public class TestController {
-    @RequestMapping(value = "/wangbadan",method = RequestMethod.GET)
+    @Autowired
+    UserService userService;
+
+    @RequestMapping(value = "/wangbadan", method = RequestMethod.GET)
     @ResponseBody
-    public String wangbadan(){
+    public String wangbadan() {
         return "wbd";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/zylwbd",method = RequestMethod.GET)
-    public String zylwbd(){
+    @RequestMapping(value = "/zylwbd", method = RequestMethod.GET)
+    public String zylwbd() {
         return "zylwbd";
     }
 
+    @GetMapping(value = "{id}")
+    @ApiOperation("根据ID查询用户")
+    @ResponseBody
+    public User getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping("query")
+    @ApiOperation("根据姓名查询用户")
+    @ResponseBody
+    public User getUserByName(User user) {
+        return userService.getUserByName(user.getUserName());
+    }
 }

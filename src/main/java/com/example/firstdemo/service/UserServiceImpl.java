@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService{
 
 
     @Resource
-    @Autowired
     UserRepository userRepository;
 
     @Cacheable(cacheNames = "user", condition = "#id>0", unless = "#result==null")
